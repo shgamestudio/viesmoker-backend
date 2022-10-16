@@ -14,7 +14,15 @@ dotenv.config();
 
 connectDB();
 
+const cors = require("cors");
 const app = express();
+
+app.use(cors({ 
+  origin: "https://viesmoker.vercel.app/", 
+  credentials: true 
+ }));
+
+
 
 if (process.env.NODE_ENV === "developement") {
   app.use(morgan("dev"));
@@ -31,10 +39,6 @@ app.get("/api/config/paypal", (req, res) =>
 );
 
 
-app.use(cors({ 
-  origin: "https://viesmoker.vercel.app/", 
-  credentials: true 
- }));
 
 const __dirname = path.resolve();
 
