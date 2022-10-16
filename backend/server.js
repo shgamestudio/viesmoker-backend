@@ -30,6 +30,12 @@ app.get("/api/config/paypal", (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );
 
+
+app.use(cors({ 
+  origin: "https://viesmoker.vercel.app/", 
+  credentials: true 
+ }));
+
 const __dirname = path.resolve();
 
 if (process.env.NODE_ENV === "production") {
