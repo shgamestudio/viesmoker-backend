@@ -18,10 +18,9 @@ connectDB();
 
 const app = express();
 
-app.use(cors({ 
-  origin: "https://viesmoker.vercel.app/", 
-  credentials: true 
- }));
+
+
+app.use(cors())
 
 
 
