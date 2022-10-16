@@ -7,6 +7,7 @@ import userRoutes from "./routes/userRoutes.js";
 import slideRoutes from "./routes/slideRoutes.js"
 import orderRoutes from "./routes/orderRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
+import cors from 'cors';
 
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
@@ -14,7 +15,7 @@ dotenv.config();
 
 connectDB();
 
-const cors = require("cors");
+
 const app = express();
 
 app.use(cors({ 
