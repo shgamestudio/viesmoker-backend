@@ -27,7 +27,7 @@ const getSlides = asyncHandler(async (req, res) => {
 
 const createSlide = async (req, res) => {
     const slide = req.body;
-    const newSlide = new PostMessage({...slide, creator: req.user._id, createdAt: new Date().toISOString()});
+    const newSlide = new Slide({...slide, createdAt: new Date().toISOString()});
 
     try {
        await newSlide.save();
@@ -40,4 +40,52 @@ const createSlide = async (req, res) => {
     }
 }
 
-export {getSlides, createSlide}
+
+const deleteSlide = asyncHandler(async (req, res) => {
+    
+    const slide = await Slide.findById(req.params.id)
+    if(slide){
+        await slide.remove()
+        res.json({message : 'Slide removed'})
+    }else{
+        res.status(404)
+        console.log("api error")
+        throw new Error('Slide not found')
+    }
+    
+    
+})
+
+const getSlideById = asyncHandler(async (req, res) => {
+    const slide =  await Slide.findById(req.params.id)
+    if(slide){
+        res.json(slide)
+    } else{
+        // status it's 500 by default cuz of errHandler
+        res.status(404)
+        throw new Error('Product not found')
+    }
+})
+
+
+
+const updateSlide = asyncHandler(async (req, res) => {
+    const {name,image,description} = req.body
+   console.log(name,image,description)
+    const slide = await Slide.findById(req.params.id)
+    console.log(slide)
+    if(slide){
+        slide.name = name
+        slide.description = description
+        slide.image = image
+    const updatedSlide = await slide.save();
+   
+    res.json(updatedSlide)
+
+    }else{
+        res.status(404)
+        throw new Error('Product Not found')
+    }
+})
+
+export {getSlides, createSlide, deleteSlide, getSlideById, updateSlide}
