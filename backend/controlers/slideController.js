@@ -80,7 +80,7 @@ const updateSlide = asyncHandler(async (req, res) => {
         slide.image = image
     const updatedSlide = await slide.save();
    
-    res.json(updatedSlide)
+    res.json(updateSlide)
 
     }else{
         res.status(404)
